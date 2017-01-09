@@ -73,12 +73,10 @@ func requestToMetric(w http.ResponseWriter, r *http.Request) {
 	s := strings.Split(string(body), "\n")
 	var mts []plugin.Metric
 	for _, line := range s {
-		fmt.Println("raw line:", line)
 		if len(line) == 0 {
 			continue
 		}
 		sp := strings.Split(line, " ")
-		fmt.Println("split line", sp)
 		// Skip PUTVAL
 		//first section is namespace, separated by /
 		namespace := strings.Split(sp[1], "/")
