@@ -61,24 +61,38 @@ func runMyServer(port int) {
 }
 
 func requestToMetric(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("REQUEST RECEIVED")
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "err: %v", err)
 		return
 	}
+	fmt.Printf(string(body))
+	//PUTVAL wcp2/swap/swap-used interval=10.000 1484002777.039:0.000000
+
 	s := strings.Split(string(body), "\n")
 	var mts []plugin.Metric
 	for _, line := range s {
+		fmt.Println("raw line:", line)
+		if len(line) == 0 {
+			continue
+		}
 		sp := strings.Split(line, " ")
-		//first section is namespace, separated by dots
-		namespace := strings.Split(sp[0], ".")
-		// second section is data
-		data, err := strconv.ParseFloat(sp[1], 64)
+		fmt.Println("split line", sp)
+		// Skip PUTVAL
+		//first section is namespace, separated by /
+		namespace := strings.Split(sp[1], "/")
+		// interval=interval
+		// discard interval for now
+		// data is format epoch-time:data
+		dtime := strings.Split(sp[3], ":")
+		data, err := strconv.ParseFloat(dtime[1], 64)
 		if err != nil {
 			continue
 		}
 		// last section is time since epoch in seconds
-		t, err := strconv.ParseInt(sp[2], 10, 64)
+		seconds := strings.Split(dtime[0], ".")
+		t, err := strconv.ParseInt(seconds[0], 10, 64)
 		if err != nil {
 			continue
 		}
