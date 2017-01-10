@@ -17,7 +17,7 @@ Data is collected with collectd on node1, written to the relay plugin and then s
 
 # Setup
 
-Use [remotey](https://github.com/IRCody/snap/tree/remotey) branch of my snap fork and [remotey](github.com/ircody/snap-plugin-lib-go/tree/remotey) branch of the plugin-lib-go fork.
+Use [remotey](https://github.com/IRCody/snap/tree/remotey) branch of my snap fork and [remotey](https://github.com/ircody/snap-plugin-lib-go/tree/remotey) branch of the plugin-lib-go fork.
 These branches add a POC for support of Plugin Initiated Workflows + service(remote) plugins.
 
 # Steps to run:
