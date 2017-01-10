@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "schedule": {
+    "type": "streaming",
+    "interval": "1m"
+  },
+  "start": true,
+  "max-failures": 10,
+  "workflow": {
+    "collect": {
+      "metrics": {
+        "/collectd": {
+        }
+      },
+      "publish": [
+        {
+          "plugin_name": "mock-file",
+          "config": {
+            "file": "/tmp/collectd.log"
+          }
+        }
+      ]
+    }
+  }
+}
