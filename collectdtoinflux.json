@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "schedule": {
+    "type": "streaming",
+    "interval": "1m"
+  },
+  "start": true,
+  "max-failures": 10,
+  "workflow": {
+    "collect": {
+      "metrics": {
+        "/snap-relay/collectd": {
+        }
+      },
+      "publish": [
+        {
+          "plugin_name": "influxdb",
+          "config": {
+            "host": "10.4.1.2",
+            "port": 8086,
+            "database": "demo",
+            "user": "root", 
+            "password": "root",
+            "https" : false,
+            "skip-verify": false
+          }
+        }
+      ]
+    }
+  }
+}
